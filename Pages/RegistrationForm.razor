@@ -1,0 +1,15 @@
+@page "/register"
+<EditForm Model="user" OnValidSubmit="HandleValidSubmit">
+    <InputText @bind-Value="user.Name" />
+    <ValidationMessage For="() => user.Name" />
+</EditForm>
+@code {
+    User user = new User();
+    void HandleValidSubmit() {
+        // handle submit
+    }
+    class User {
+        [Required]
+        public string Name { get; set; }
+    }
+}
