@@ -1,0 +1,24 @@
+@page "/register"
+@inject EventEase.Services.UserService UserService
+
+<EditForm Model="@UserService.CurrentUser" OnValidSubmit="() => submitted = true">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label>Name:</label>
+    <InputText @bind-Value="UserService.CurrentUser.Name" />
+
+    <label>Email:</label>
+    <InputText @bind-Value="UserService.CurrentUser.Email" />
+
+    <button type="submit">Register</button>
+</EditForm>
+
+@if (submitted)
+{
+    <p>Thanks for registering, @UserService.CurrentUser.Name!</p>
+}
+
+@code {
+    private bool submitted = false;
+}
