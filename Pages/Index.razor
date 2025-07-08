@@ -1,0 +1,9 @@
+@page "/"
+@inject EventEase.Services.EventService EventService
+
+<h1>Upcoming Events</h1>
+
+@foreach (var ev in EventService.Events)
+{
+    <EventCard Event="@ev" />
+}
