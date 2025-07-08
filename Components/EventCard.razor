@@ -1,0 +1,15 @@
+@using EventEase.Models
+@inject NavigationManager NavManager
+
+<div class="card" @onclick="GoToDetails" style="cursor: pointer; border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+    <h3>@Event.Title</h3>
+    <p>@Event.Description</p>
+    <small><strong>Date:</strong> @Event.Date.ToShortDateString()</small>
+</div>
+
+@code {
+    [Parameter]
+    public EventModel Event { get; set; }
+
+    void GoToDetails() => NavManager.NavigateTo($"/event/@Event.Id");
+}
