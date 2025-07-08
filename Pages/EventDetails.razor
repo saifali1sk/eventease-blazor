@@ -1,0 +1,39 @@
+@page "/event/{EventId:int}"
+@inject EventEase.Services.EventService EventService
+@inject EventEase.Services.UserService UserService
+
+@code {
+    [Parameter] public int EventId { get; set; }
+    private EventEase.Models.EventModel? ev;
+
+    protected override void OnInitialized()
+    {
+        ev = EventService.GetEventById(EventId);
+    }
+
+    void Register()
+    {
+        EventService.AddAttendee(EventId, UserService.CurrentUser.Name);
+    }
+}
+
+@if (ev != null)
+{
+    <h2>@ev.Title</h2>
+    <p>@ev.Description</p>
+    <p><strong>Date:</strong> @ev.Date.ToShortDateString()</p>
+
+    <button @onclick="Register">I’m Attending</button>
+
+    <h4>Attendees:</h4>
+    <ul>
+        @foreach (var name in ev.Attendees)
+        {
+            <li>@name</li>
+        }
+    </ul>
+}
+else
+{
+    <p>Event not found.</p>
+}
